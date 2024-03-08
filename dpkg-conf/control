@@ -1,0 +1,8 @@
+Package: oneshot
+Architecture: all
+Maintainer: Rem01Gaming
+Installed-Size: 600
+Version: 1.0.0
+Homepage: https://github.com/Rem01Gaming/oneshot
+Depends: python, pixiewps, wpa-supplicant, tsu, iw
+Description: Run pixiedust or bruteforce attack
