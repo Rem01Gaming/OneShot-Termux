@@ -19,7 +19,9 @@ pack-deb:
 	@mkdir -v $(O)/deb
 	@mkdir -pv $(O)/deb$(PREFIX)
 	@mkdir -pv $(O)/deb$(PREFIX)/bin/
+	@mkdir -pv $(O)/deb$(PREFIX)/share/oneshot/
 	@cp -rv src/oneshot $(O)/deb$(PREFIX)/bin/
+	@cp -rv share/* $(O)/deb$(PREFIX)/share/oneshot/
 	@cp -rv dpkg-conf $(O)/deb/DEBIAN
 	@printf "\033[1;38;2;254;228;208m[+] Build packages.\033[0m\n"&&sleep 1s
 	@chmod -Rv 755 $(O)/deb/DEBIAN
