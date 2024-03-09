@@ -1,8 +1,8 @@
 Package: oneshot
 Architecture: all
 Maintainer: Rem01Gaming
-Installed-Size: 600
-Version: 1.0.0
+Installed-Size: 650
+Version: 1.0.1
 Homepage: https://github.com/Rem01Gaming/oneshot
 Depends: python, pixiewps, wpa-supplicant, tsu, iw
-Description: Run pixiedust or bruteforce attack
+Description: Run WPS PIN attacks (Pixie Dust and bruteforce) without monitor mode with wpa_supplicant
