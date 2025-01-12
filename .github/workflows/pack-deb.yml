@@ -1,0 +1,41 @@
+name: Build DEB Package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pack-deb.yml'
+      - 'src/**'
+      - 'deb/share/**'
+      - 'deb/dpkg-conf/**'
+
+jobs:
+  build:
+    name: Build DEB package
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: dpkg compile
+      id: compile_deb
+      working-directory: ./
+      run: bash .github/scripts/compile_deb.sh
+
+    - name: Upload to telegram
+      env:
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        COMMIT_URL: ${{ github.event.head_commit.url }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        TITLE: OneShot Termux DEB Package
+      run: |
+        if [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
+          export VERSION=$(git rev-list --count HEAD)
+          bash $GITHUB_WORKSPACE/.github/scripts/telegram_bot.sh ${{ steps.compile_deb.outputs.deb_out }}
+        fi
