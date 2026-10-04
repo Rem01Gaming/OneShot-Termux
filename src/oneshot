@@ -856,6 +856,8 @@ class WiFiScanner:
         def handle_network(line, result, networks):
             networks.append(
                     {
+                        'ESSID': '',
+                        'Level': 0,
                         'Security type': 'Unknown',
                         'WPS': False,
                         'WPS locked': False,
