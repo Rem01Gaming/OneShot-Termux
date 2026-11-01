@@ -828,6 +828,10 @@ class Companion:
         self.cleanup()
 
 
+class TargetSelectionInterrupted(Exception):
+    pass
+
+
 class WiFiScanner:
     """docstring for WiFiScanner"""
     def __init__(self, interface, vuln_list=None):
@@ -1031,6 +1035,8 @@ class WiFiScanner:
                     return networks[int(networkNo)]['BSSID']
                 else:
                     raise IndexError
+            except KeyboardInterrupt as exc:
+                raise TargetSelectionInterrupted from exc
             except Exception:
                 print('Invalid number')
 
@@ -1226,6 +1232,9 @@ if __name__ == '__main__':
                 break
             else:
                 args.bssid = None
+        except TargetSelectionInterrupted:
+            print("\nAborting…")
+            break
         except KeyboardInterrupt:
             if args.loop:
                 if input("\n[?] Exit the script (otherwise continue to AP scan)? [N/y] ").lower() == 'y':
